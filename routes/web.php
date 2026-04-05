@@ -6,11 +6,20 @@ use App\Http\Controllers\DashboardController;
 use App\Models\Tenant;
 use App\Http\Controllers\RfidController;
 use App\Http\Controllers\TenantController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ScanController;
+
+Route::get('/scan', [ScanController::class, 'index']);
+Route::get('/api/scan', [RfidController::class, 'scan']);
+Route::get('/rfid/latest', [RfidController::class, 'getLatestRfid']);
+
+Route::post('/admin', [AdminController::class, 'store']);
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/tenant', [TenantController::class, 'index']);
     Route::get('/tenant/create', [TenantController::class, 'create']);
-    Route::post('/tenant/store', [TenantController::class, 'store']);
+    Route::post('/tenant', [TenantController::class, 'store']);
     Route::delete('/tenant/{id}', [TenantController::class, 'destroy']);
 });
 

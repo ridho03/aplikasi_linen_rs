@@ -24,18 +24,24 @@ class TenantController extends Controller
     // 💾 simpan RS
     public function store(Request $request)
     {
-        Tenant::create([
-            'name' => $request->name,
-            'api_key' => Str::random(40) // 🔥 auto generate
+        // 🔥 VALIDASI
+        $request->validate([
+            'name' => 'required|string|max:255'
         ]);
 
-        return redirect('/tenant')->with('success', 'RS berhasil ditambahkan');
+        Tenant::create([
+            'name' => $request->name,
+            'api_key' => Str::random(40)
+        ]);
+
+        return redirect('/tenant')
+            ->with('success', 'RS berhasil ditambahkan');
     }
 
-    // ❌ hapus RS
-    public function destroy($id)
-    {
-        Tenant::findOrFail($id)->delete();
-        return back()->with('success', 'RS berhasil dihapus');
-    }
+    public function destroy(Tenant $id)
+{
+    $id->delete();
+
+    return back()->with('success', 'RS berhasil dihapus');
+}
 }

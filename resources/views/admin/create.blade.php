@@ -1,58 +1,66 @@
 <x-app-layout>
 
-<div style="padding:30px; max-width:500px; margin:auto;">
+    <div class="content">
 
-    <h2 style="font-size:22px; font-weight:bold; margin-bottom:20px;">
-        Tambah Admin Rumah Sakit
-    </h2>
+        <h2 class="page-title">Tambah Admin Rumah Sakit</h2>
 
-    @if(session('success'))
-        <div style="background:#16a34a; color:white; padding:10px; border-radius:8px; margin-bottom:10px;">
-            {{ session('success') }}
+        <div class="form-wrapper">
+
+            <div class="card">
+                @if(session('success'))
+                    <div class="card" style="margin-bottom:15px;">
+                        <span style="color:#4ade80;">
+                            {{ session('success') }}
+                        </span>
+                    </div>
+                @endif
+
+                <form method="POST" action="/admin">
+                    @csrf
+
+                    <!-- NAMA -->
+                    <div class="form-group">
+                        <label>Nama Admin</label>
+                        <input type="text" name="name" class="input" required>
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" class="input" required>
+                    </div>
+
+                    <!-- PASSWORD -->
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" class="input" required>
+                    </div>
+
+                    <!-- TENANT -->
+                    <div class="form-group">
+                        <label>Rumah Sakit</label>
+                        <select name="tenant_id" class="input" required>
+                            <option value="">-- Pilih Rumah Sakit --</option>
+                            @foreach($tenants as $t)
+                                <option value="{{ $t->id }}">
+                                    {{ $t->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- BUTTON -->
+                    <div style="margin-top:20px; display:flex; gap:10px;">
+                        <button class="btn btn-primary">Simpan</button>
+                        <a href="/dashboard" class="btn btn-warning">Kembali</a>
+                    </div>
+
+                </form>
+
+            </div>
+
         </div>
-    @endif
 
-    <form method="POST" action="/admin/store">
-        @csrf
-
-        <!-- Nama -->
-        <input type="text" name="name" placeholder="Nama Admin"
-            style="width:100%; padding:10px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;"
-            required>
-
-        <!-- Email -->
-        <input type="email" name="email" placeholder="Email"
-            style="width:100%; padding:10px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;"
-            required>
-
-        <!-- Password -->
-        <input type="password" name="password" placeholder="Password"
-            style="width:100%; padding:10px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;"
-            required>
-
-        <!-- Tenant -->
-        <select name="tenant_id"
-    style="width:100%; padding:10px; margin-bottom:15px; border-radius:8px; border:1px solid #ccc;"
-    required>
-
-    <option value="">-- Pilih Rumah Sakit --</option>
-
-    @foreach($tenants as $t)
-        <option value="{{ $t->id }}">
-            {{ $t->name }}
-        </option>
-    @endforeach
-
-</select>
-
-        <!-- Button -->
-        <button type="submit"
-            style="width:100%; background:#2563eb; color:white; padding:12px; border:none; border-radius:8px;">
-            Simpan Admin
-        </button>
-
-    </form>
-
-</div>
+    </div>
 
 </x-app-layout>

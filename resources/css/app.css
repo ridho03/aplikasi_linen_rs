@@ -1,3 +1,253 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ================= BASE ================= */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+/* ================= LAYOUT ================= */
+.content {
+    max-width: 1200px;
+    margin: auto;
+    padding: 24px;
+}
+
+/* TOOLBAR */
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 25px;
+}
+
+
+/* LEFT BUTTON */
+.toolbar-left {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.form-wrapper {
+    max-width: 700px;   /* 🔥 ini lebih pas */
+    margin: 40px auto;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+td {
+    color: #e2e8f0; /* 🔥 ini bikin terang */
+}
+
+th {
+    color: #f8fafc;
+}
+
+.api-key {
+    font-size: 13px;
+    color: #cbd5e1;
+    word-break: break-all;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* RIGHT FILTER */
+.toolbar-right {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* FIX INPUT SIZE */
+.toolbar-right .input {
+    min-width: 150px;
+}
+
+.container {
+    padding: 24px;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+    width: 100%;
+    background: #0f172a;
+    border-bottom: 1px solid #1e293b;
+    backdrop-filter: blur(10px);
+}
+
+.nav-container {
+    max-width: 1300px;
+    margin: auto;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.menu {
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user {
+    color: #e2e8f0;
+    font-size: 14px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.input {
+    width: 100%;
+}
+
+/* ================= GRID ================= */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* ================= CARD ================= */
+.card {
+    border-radius: 14px;
+    padding: 20px;
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h2 {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+/* VARIANT CARD */
+.highlight { background: #2563eb; }
+.success { background: #16a34a; }
+.danger { background: #dc2626; }
+
+.label {
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+/* ================= BUTTON ================= */
+.btn {
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-sm {
+    padding: 6px 10px;
+    font-size: 12px;
+}
+
+.btn-primary { background: #2563eb; color: white; }
+.btn-success { background: #16a34a; color: white; }
+.btn-warning { background: #f59e0b; color: white; }
+.btn-danger  { background: #ef4444; color: white; }
+
+/* ================= FORM ================= */
+.filter {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input, select {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #334155;
+    background: #1e293b;
+    color: white;
+}
+
+/* ================= TABLE ================= */
+.table-container {
+    background: #1e293b;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #020617;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-top: 1px solid #334155;
+}
+
+tr:hover {
+    background: #334155;
+}
+
+/* ================= BADGE ================= */
+.badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+}
+
+.badge-success {
+    background: #22c55e33;
+    color: #4ade80;
+}
+
+.badge-danger {
+    background: #ef444433;
+    color: #f87171;
+}
