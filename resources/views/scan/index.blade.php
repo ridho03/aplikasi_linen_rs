@@ -45,7 +45,8 @@
                     <th>UID</th>
                     <th>Nama</th>
                     <th>Status</th>
-                    <th>Waktu</th>
+                    <th>Masuk</th>
+                    <th>Keluar</th>
                 </tr>
             </thead>
 
@@ -55,8 +56,17 @@
                     <td>{{ $data->firstItem() + $i }}</td>
                     <td>{{ $d->kode }}</td>
                     <td>{{ $d->nama }}</td>
-                    <td>{{ $d->status }}</td>
-                    <td>{{ $d->updated_at }}</td>
+                    <td>
+                        <span class="badge 
+                            @if($d->status == 'MASUK') bg-success 
+                            @elseif($d->status == 'KELUAR') bg-danger 
+                            @else bg-warning 
+                            @endif">
+                            {{ $d->status }}
+                        </span>
+                    </td>
+                    <td>{{ optional($d->waktu_masuk)->format('d-m-Y H:i:s') ?? '-' }}</td>
+                    <td>{{ optional($d->waktu_keluar)->format('d-m-Y H:i:s') ?? '-' }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -68,3 +78,54 @@
 </div>
 
 </x-app-layout>
+
+<script>
+function formatDate(date) {
+    if (!date) return '-';
+
+    let d = new Date(date);
+
+    let day = String(d.getDate()).padStart(2, '0');
+    let month = String(d.getMonth() + 1).padStart(2, '0');
+    let year = d.getFullYear();
+
+    let hours = String(d.getHours()).padStart(2, '0');
+    let minutes = String(d.getMinutes()).padStart(2, '0');
+    let seconds = String(d.getSeconds()).padStart(2, '0');
+
+    return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+}
+
+function loadRealtime() {
+    fetch('/scan/realtime')
+        .then(res => res.json())
+        .then(data => {
+            let tbody = document.querySelector("tbody");
+            tbody.innerHTML = "";
+
+            data.forEach((d, i) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${d.kode}</td>
+                        <td>${d.nama ?? '-'}</td>
+                        <td>
+                            <span class="badge ${
+                                d.status === 'MASUK' ? 'bg-success' :
+                                d.status === 'KELUAR' ? 'bg-danger' :
+                                'bg-warning'
+                            }">
+                                ${d.status}
+                            </span>
+                        </td>
+                        <td>${formatDate(d.waktu_masuk)}</td>
+                        <td>${formatDate(d.waktu_keluar)}</td>
+                    </tr>
+                `;
+            });
+        });
+}
+
+setInterval(loadRealtime, 3000);
+loadRealtime();
+</script>

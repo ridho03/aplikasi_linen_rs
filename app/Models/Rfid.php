@@ -10,6 +10,14 @@ class Rfid extends Model
     protected $fillable = [
     'kode',
     'status',
-    'tenant_id'
+    'tenant_id',
+    'nama',
+    'waktu_masuk',
+    'waktu_keluar'
+];
+
+protected $casts = [
+    'waktu_masuk' => 'datetime',
+    'waktu_keluar' => 'datetime',
 ];
 }

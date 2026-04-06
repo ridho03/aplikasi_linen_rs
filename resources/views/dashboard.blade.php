@@ -56,12 +56,12 @@
                 </div>
 
                 <div class="card success">
-                    <p class="label">Masuk</p>
+                    <p class="label">Linen Masuk</p>
                     <h2>{{ $masuk ?? 0 }}</h2>
                 </div>
 
                 <div class="card danger">
-                    <p class="label">Keluar</p>
+                    <p class="label">Linen Keluar</p>
                     <h2>{{ $keluar ?? 0 }}</h2>
                 </div>
 
@@ -97,7 +97,8 @@
                             <th>No</th>
                             <th>UID</th>
                             <th>Nama</th>
-                            <th>Waktu</th>
+                            <th>Waktu Masuk</th>
+                            <th>Waktu Keluar</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -108,13 +109,13 @@
                                 <td>{{ $i + 1 }}</td>
                                 <td>{{ $d->kode }}</td>
                                 <td>{{ $d->nama ?? '-' }}</td>
-                                <td>{{ $d->updated_at }}</td>
+                                <td>{{ optional($d->waktu_masuk)->format('d-m-Y H:i:s') ?? '-' }}</td>
+                                <td>{{ optional($d->waktu_keluar)->format('d-m-Y H:i:s') ?? '-' }}</td>
+
                                 <td>
-                                    @if($d->status == 'MASUK')
-                                        <span class="badge badge-success">MASUK</span>
-                                    @else
-                                        <span class="badge badge-danger">KELUAR</span>
-                                    @endif
+                                    <span class="badge {{ $d->status == 'MASUK' ? 'badge-success' : 'badge-danger' }}">
+                                        {{ $d->status }}
+                                    </span>
                                 </td>
                             </tr>
                         @empty

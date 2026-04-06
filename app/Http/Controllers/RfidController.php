@@ -158,7 +158,8 @@ public function scan(Request $request)
                 'kode' => $kode,
                 'nama' => $tag->nama,
                 'status' => 'MASUK',
-                'tenant_id' => $tenant_id
+                'tenant_id' => $tenant_id,
+                'waktu_masuk' => now()
             ]);
 
             return response()->json([
@@ -180,14 +181,22 @@ public function scan(Request $request)
         }
 
         // 🔄 toggle status
+        // 🔄 toggle status
         $status = ($rfid->status == 'MASUK') ? 'KELUAR' : 'MASUK';
 
-        // 🔥 update (INI KUNCI)
-        $rfid->update([
+        $dataUpdate = [
             'status' => $status,
             'nama' => $tag->nama,
-            'updated_at' => now()
-        ]);
+        ];
+
+        if ($status === 'MASUK') {
+            $dataUpdate['waktu_masuk'] = now();
+            $dataUpdate['waktu_keluar'] = null; // 🔥 RESET
+        } else {
+            $dataUpdate['waktu_keluar'] = now();
+        }
+
+        $rfid->update($dataUpdate);
 
         return response()->json([
             'kode' => $kode,
@@ -217,4 +226,12 @@ public function scan(Request $request)
         'kode' => $rfid->kode ?? null
     ]);
 }
+
+public function realtime()
+{
+    $data = \App\Models\Rfid::latest()->take(10)->get();
+
+    return response()->json($data);
+}
+
 }

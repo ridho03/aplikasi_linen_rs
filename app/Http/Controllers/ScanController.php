@@ -10,6 +10,9 @@ class ScanController extends Controller
 {
     public function index(Request $request)
     {
+        Rfid::whereNull('nama')
+    ->where('created_at', '<', now()->subSeconds(60))
+    ->delete();
         $user = auth()->user();
 
         // 🔥 base query

@@ -240,6 +240,8 @@ tr:hover {
     padding: 4px 10px;
     border-radius: 999px;
     font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
 }
 
 .badge-success {
@@ -250,4 +252,22 @@ tr:hover {
 .badge-danger {
     background: #ef444433;
     color: #f87171;
+}
+
+/* MASUK */
+.bg-success {
+    background-color: #22c55e;
+    color: white;
+}
+
+/* KELUAR */
+.bg-danger {
+    background-color: #ef4444;
+    color: white;
+} 
+
+/* PENDING */
+.bg-warning {
+    background-color: #f59e0b;
+    color: white;
 }

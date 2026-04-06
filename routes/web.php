@@ -9,6 +9,8 @@ use App\Http\Controllers\TenantController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ScanController;
 
+Route::get('/scan/realtime', [RfidController::class, 'realtime']);
+
 Route::get('/scan', [ScanController::class, 'index']);
 Route::get('/api/scan', [RfidController::class, 'scan']);
 Route::get('/rfid/latest', [RfidController::class, 'getLatestRfid']);
@@ -30,7 +32,7 @@ Route::get('/rfid/tag', [RfidController::class, 'formTag']);
 Route::post('/rfid/tag', [RfidController::class, 'storeTag']);
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 Route::middleware(['auth'])->group(function () {
